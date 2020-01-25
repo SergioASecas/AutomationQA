@@ -1,6 +1,8 @@
 
 package Servicios;
 
+import java.io.IOException;
+
 import org.openqa.selenium.By;
 import com.microsoft.appcenter.appium.EnhancedAndroidDriver;
 import io.appium.java_client.MobileElement;
@@ -79,20 +81,23 @@ public class certificadosElectronicos extends Base{
 		click(ceritificadosElectronicosLocator);		
 	}
 	
-	public void busquedaEmpresa()throws InterruptedException {
+	public void busquedaEmpresa()throws InterruptedException, IOException {
 		click(solicitudLocator);
 	    //---------------------------------------------DESPLEGABLE OPCIONES DE BÚSQUEDA-------------------------------------------------
-		click(dropDownLocator);
-		click(seleccionDropDownLocator);
+		//click(dropDownLocator);
+		//click(seleccionDropDownLocator);
 		
 		//SCROLL 	
-		MobileElement elementToClick = (MobileElement) driver
+		/*MobileElement elementToClick = (MobileElement) driver
 			    .findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()"
 			      + ".className(\"android.view.View\")).scrollIntoView("
 			        + "new UiSelector().resourceId(\"filtro\"));");
-			elementToClick.click();	
-		click(filtroLocator);
-		type("152408", filtroLocator);
+			elementToClick.click();	*/
+		//click(filtroLocator);
+		
+		Thread.sleep(5000);
+		String filtro = leerExcel("Login", 1, 0);
+		type(filtro, filtroLocator);
 		click(buscarInscritosLocator);
 		click(resultadoLocator);
 	}	
@@ -291,6 +296,7 @@ public class certificadosElectronicos extends Base{
 		driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()"
 				+ ".className(\"android.view.View\")).scrollIntoView("
 				+ "new UiSelector().text(\"Solicitud 9914356 08/11/2019 Estado Orden Pago Generada\"));");
+		//Falta click en descargar
 		click(atrasBtnLocatorApp);
 	}
 	

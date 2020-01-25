@@ -1,10 +1,16 @@
 package Servicios;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.*;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.openqa.selenium.By;
@@ -61,6 +67,7 @@ public class Base {
 		driver.findElement(locator).sendKeys(inputText);
 	}
 	
+	
 	public void click(By locator) {
 		driver.findElement(locator).click();
 	}
@@ -79,6 +86,19 @@ public class Base {
 	
 	public void ocultarKeyboard() {
 		driver.hideKeyboard();
+	}
+	
+	public String leerExcel(String nombreHoja, int numeroFila, int numeroCelda) throws IOException {
+		String archivo = "C:\\Users\\SERGIO\\Desktop\\loginCertL.xlsx";
+		File file = new File(archivo);		
+		FileInputStream inputStream = new FileInputStream(file);
+		XSSFWorkbook myWorkbook = new XSSFWorkbook(inputStream);
+		XSSFSheet mySheet = myWorkbook.getSheet(nombreHoja);
+		//DataFormatter formato = new DataFormatter();
+		
+		XSSFRow fila = mySheet.getRow(numeroFila);
+		XSSFCell celda = fila.getCell(numeroCelda);		
+		return celda.getStringCellValue();	
 	}
 	
 }
